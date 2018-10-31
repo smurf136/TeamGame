@@ -50,7 +50,7 @@ class GameScene extends Phaser.Scene {
         });
 
         this.anims.create({
-            key: "turn",
+            key: "down",
             frames: [{ key: "beaver", frame: 4 }],
             frameRate: 20
         });
@@ -88,18 +88,22 @@ class GameScene extends Phaser.Scene {
             player.setVelocityX(-160); // move left
             player.anims.play('left', true);
             console.log("left");
-            return;
+            return 0;
         }
-        // else if (cursors.right.isDown) {
-        //     // if the right arrow key is down
-        //     player.setVelocityX(160); // move right
-        //     player.anims.play('right', true);
-        //     return;
-        else {
-             player.setVelocityX(0);
-      player.anims.play('turn');
+        if (cursors.right.isDown) {
+            // if the right arrow key is down
+            player.setVelocityX(160); // move right
+            player.anims.play('right', true);
+            console.log("right")
+            return 0;
+        }
+        if (cursors.up.isDown) {
+            player.setVelocityX(0);
+            player.anims.play('down',true);
+            console.log("down")
+            return 0;
          }
-
+        
         // if (cursors.up.isDown && player.body.touching.down) {
         //     player.setVelocityY(-330);
         // }
