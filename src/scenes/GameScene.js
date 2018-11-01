@@ -77,40 +77,41 @@ class GameScene extends Phaser.Scene {
         const height = this.scene.scene.physics.world.bounds.height;
         const x = width * 0.5;
         const y = height * 0.5;
-        
+
         cursors = this.input.keyboard.createCursorKeys();
         // this.add.image(0, 0, 'bomb').setOrigin(0,0)
     }
 
     update() {
-        if (cursors.left.isDown) {
-            // if the left arrow key is down
-            player.setVelocityX(-160); // move left
-            player.anims.play('left', true);
-            console.log("left");
-            return 0;
+        if (cursors.left.isDown || cursors.right.isDown) {
+            if (cursors.left.isDown) {
+                // if the left arrow key is down
+                player.setVelocityX(-160); // move left
+                player.anims.play("left", true);
+                console.log("left");
+            }
+            if (cursors.right.isDown) {
+                player.setVelocityX(160); // move right
+                player.anims.play("right", true);
+                console.log("right");
+            }
         }
-        if (cursors.right.isDown) {
-            // if the right arrow key is down
-            player.setVelocityX(160); // move right
-            player.anims.play('right', true);
-            console.log("right")
-            return 0;
-        }
-        if (cursors.up.isDown) {
+        // if the right arrow key is down
+        else {
             player.setVelocityX(0);
-            player.anims.play('down',true);
-            console.log("down")
-            return 0;
-         }
-        
-        // if (cursors.up.isDown && player.body.touching.down) {
-        //     player.setVelocityY(-330);
-        // }
-        // if ((cursors.space.isDown || cursors.up.isDown) && player.body.onFloor())
-        // {
-        //     player.body.setVelocityY(-500); // jump up
-        // }
+            player.anims.play("down", true);
+            console.log("down");
+        }
+
+        if (cursors.up.isDown && player.body.touching.down) {
+            player.setVelocityY(-330);
+        }
+        if (
+            (cursors.space.isDown || cursors.up.isDown) &&
+            player.body.onFloor()
+        ) {
+            player.body.setVelocityY(-500); // jump up
+        }
     }
 }
 
